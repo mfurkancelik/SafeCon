@@ -1,0 +1,63 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using SafeCon.Areas.Identity.Data
+@using SafeCon.Services
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model SafeCon.Areas.Identity.Pages.Request.RequestModel
+@{
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Create a new request</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Start"></label>
+                <input asp-for="Input.Start" class="form-control" />
+                <span asp-validation-for="Input.Start" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.End"></label>
+                <input asp-for="Input.End" class="form-control" />
+                <span asp-validation-for="Input.End" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.FreightAmount"></label>
+                <input asp-for="Input.FreightAmount" class="form-control" />
+                <span asp-validation-for="Input.FreightAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.FreightType"></label>
+                <input asp-for="Input.FreightType" class="form-control" />
+                <span asp-validation-for="Input.FreightType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PickUpAddresses"></label>
+                <select name="PickUpAddressId" asp-items="Model.PickUpAddresses"></select>
+                <span asp-validation-for="PickUpAddresses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinationAddresses"></label>
+                <select name="DestinationAddressId" asp-items="Model.DestinationAddresses"></select>
+                <span asp-validation-for="DestinationAddresses" class="text-danger"></span>
+            </div>
+            @{
+                var userService = new UserService();
+                var user = await UserManager.GetUserAsync(User);
+                var customUser = userService.GetByDefault(user => user.Email.Equals(user.Email));
+            }
+            <button type="submit" class="text-danger">Send</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
