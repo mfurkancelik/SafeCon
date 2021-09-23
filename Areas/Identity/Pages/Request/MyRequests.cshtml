@@ -1,0 +1,62 @@
+﻿@page
+@inject UserManager<ApplicationUser> UserManager
+@inject SafeCon.Services.AddressService _addressService
+@model SafeCon.Areas.Identity.Pages.Request.MyRequestsModel
+@{
+}
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Start Time")
+            </th>
+            <th>
+                @Html.DisplayName("End Time")
+            </th>
+            <th>
+                @Html.DisplayName("Freight Amount(Tons)")
+            </th>
+            <th>
+                @Html.DisplayName("Freight Type")
+            </th>
+            <th>
+                @Html.DisplayName("Pick Up Addresses")
+            </th>
+            <th>
+                @Html.DisplayName("Destination Addresses")
+            </th>
+            <th>Edit | Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RequestList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.End)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FreightAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FreightType)
+                </td>
+                <td>   
+                    @_addressService.GetById(item.PickUpAddressId).ToString()
+                </td>
+                <td>
+                    @_addressService.GetById(item.DestinationAddressId).ToString()
+                </td>
+                <td>
+                    <a asp-page="./EditRequest" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./MyRequests" onclick="return confirm('Are you sure you want to delete this item?');" asp-page-handler="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

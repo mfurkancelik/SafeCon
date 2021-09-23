@@ -1,0 +1,43 @@
+﻿@page
+@model SafeCon.Areas.Identity.Pages.Address.EditAddressModel
+@{
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    <h3>Edit Address</h3>
+    <hr />
+    <br />
+    <form method="post">
+        <input asp-for="Address.Id" type="hidden" />
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Address.Line"></label>
+                <input asp-for="Address.Line" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Address.City"></label>
+                <input asp-for="Address.City" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Address.Country"></label>
+                <input asp-for="Address.Country" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Address.ZipCode"></label>
+                <input asp-for="Address.ZipCode" cl class="form-control" />
+            </div>
+        </div>
+        <br />
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-default" href="/Identity/Address/MyAddresses">Cancel</a>
+    </form>
+</div>

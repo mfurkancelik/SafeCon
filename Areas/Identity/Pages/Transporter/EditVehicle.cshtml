@@ -1,0 +1,43 @@
+﻿@page
+@model SafeCon.Areas.Identity.Pages.Transporter.EditVehicleModel
+@{
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    <h3>Edit Vehicle</h3>
+    <hr />
+    <br />
+    <form method="post">
+        <input asp-for="Vehicle.Id" type="hidden" />
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Vehicle.VehicleName"></label>
+                <input asp-for="Vehicle.VehicleName" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Vehicle.InsurancePolicyNumber"></label>
+                <input asp-for="Vehicle.InsurancePolicyNumber" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Vehicle.TrailerType"></label>
+                <input asp-for="Vehicle.TrailerType" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="Vehicle.VehicleCapacity"></label>
+                <input asp-for="Vehicle.VehicleCapacity" cl class="form-control" />
+            </div>
+        </div>
+        <br />
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-default" href="/Identity/Transporter/MyVehicles">Cancel</a>
+    </form>
+</div>

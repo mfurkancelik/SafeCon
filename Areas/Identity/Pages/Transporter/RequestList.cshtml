@@ -1,0 +1,83 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using SafeCon.Areas.Identity.Data
+@using SafeCon.Services
+@inject UserManager<ApplicationUser> UserManager
+@inject SafeCon.Services.AddressService _addressService
+@inject SafeCon.Services.RequestService _requestService
+@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<ApplicationUser> SignInManager
+@model SafeCon.Areas.Identity.Pages.Transporter.RequestListModel
+@{
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Start Time")
+                </th>
+                <th>
+                    @Html.DisplayName("End Time")
+                </th>
+                <th>
+                    @Html.DisplayName("Freight Amount(Tons)")
+                </th>
+                <th>
+                    @Html.DisplayName("Freight Type")
+                </th>
+                <th>
+                    @Html.DisplayName("Pick Up Addresses")
+                </th>
+                <th>
+                    @Html.DisplayName("Destination Addresses")
+                </th>
+                <th>Give Offer </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @foreach (var item in Model.RequestList)
+                    {
+                    <form method="post">
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Start)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.End)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FreightAmount)
+                                    @Html.HiddenFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FreightType)
+                                </td>
+                                <td>
+                                    @_addressService.GetById(item.PickUpAddressId).ToString()
+                                </td>
+                                <td>
+                                    @_addressService.GetById(item.DestinationAddressId).ToString()
+                                </td>
+                                
+                                <td><input type="text" id="OfferPrice" name="Offer Price" /></td>
+                                <td><input type="submit" name="Offer Price" class="text-danger"> </td>
+                            </tr>
+                        </table>
+                    </form>
+                            }
+                    </td>
+                    </tr>
+                </tbody>
+    </table>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

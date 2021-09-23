@@ -1,0 +1,55 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using SafeCon.Areas.Identity.Data
+@using SafeCon.Services
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@model SafeCon.Areas.Identity.Pages.Address.AddressModel
+@{
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl"  method="post">
+            <h4>Create a new address</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Address.Line"></label>
+                <input asp-for="Address.Line" class="form-control" />
+                <span asp-validation-for="Address.Line" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.City"></label>
+                <input asp-for="Address.City" class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Country"></label>
+                <input asp-for="Address.Country" class="form-control" />
+                <span asp-validation-for="Address.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.ZipCode"></label>
+                <input asp-for="Address.ZipCode" class="form-control" />
+                <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+            </div>
+            @{
+                var userService = new UserService();
+                var user = await UserManager.GetUserAsync(User);
+                var customUser = userService.GetByDefault(user => user.Email.Equals(user.Email));
+            }
+
+            <button type="submit" class="text-danger">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

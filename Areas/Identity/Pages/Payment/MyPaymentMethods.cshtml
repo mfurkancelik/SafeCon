@@ -1,0 +1,49 @@
+﻿@page
+@model SafeCon.Areas.Identity.Pages.Payment.MyPaymentMethodsModel
+@{
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Credit Card Name")
+            </th>
+            <th>
+                @Html.DisplayName("Credit Card Number")
+            </th>
+            <th>
+                @Html.DisplayName("Expiration Date")
+            </th>
+            <th>
+                @Html.DisplayName("CVV")
+            </th>
+            <th>Edit | Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaymentList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cvv)
+                </td>
+                <td>
+                    <a asp-page="./EditPaymentMethod" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./MyPaymentMethods" onclick="return confirm('Are you sure you want to delete this item?');" asp-page-handler="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
